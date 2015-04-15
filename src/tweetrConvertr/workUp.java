@@ -66,23 +66,12 @@ public class workUp {
 //		    }
 //
 		    Player player = new Player();
-		    
-		    String tweet = "I he the world bcuse of so many stupid things";
+		    String tweet = "Could Mad Men all be a book that Ken Cosgrove has written in the future #MadMen";
 		    String sent = "negative";
 		    String sound = GeneratePolarSound(tweet,sent, GenerateTempoAndInstrument(tweet,sent));
-		    
-		    //System.out.println(sound);
-		    // player.play(sound);
-		    
-		    
-//		    Chord[] chords = cp.setKey("C").getChords();
-//		    for(Chord chord : chords){
-//		    	System.out.println("Chord " + chord + " has these notes: ");
-//		    	Note[] notes = chord.getNotes();
-//		    	System.out.println();
-//		    }
-//		    player.play(cp);
-			
+		    System.out.println(sound);
+		    player.play(sound);
+
 		    
 		}
 		catch(Exception e){
@@ -94,39 +83,43 @@ public class workUp {
 		String stringString = "";
 		Random randomNote = new Random();
 		ChordProgression cp;
-		
 		String[] scale = {"A","B","C","D","E","F", "G"};
 		String scoreKey = scale[randomNote.nextInt(7)] + setKeyType(tweet);
-		
-		//duration is for the length of the notes, but for now I am only dealing with chords
 		char[] duration = {'w','h','Q'};
-		//for adding to the string of music, think about either adding Markovian Chains to notes, or L-System for the notes to build a song
-		//L System per each polarity, so that there is a in depth construction of possible chord progressions depending on the song and many possible combinations
-		int tweetLength = randomNote.nextInt(tweet.length());
+		
+		/**
+		 * for now only play the chords for the progression,
+		 * later take notes from each chord, make song from those notes
+		 * use two voices possibly
+		 * for adding to the string of music, think about either adding Markovian Chains to notes, or L-System for the notes to build a song
+		 * L System per each polarity, so that there is a in depth construction of possible chord progressions depending on the song and many possible combinations
+		 * 
+		 */
 		
 		switch(polarity){
 		case "negative":
 			String[] negProgress = {"i iv v","i IIdim V","i VIdim","i bVI iv V"};
 			cp = new ChordProgression(negProgress[randomNote.nextInt(4)]).setKey(scoreKey);
 			
-			while(stringString.length() < tweetLength){
-				stringString += scale[randomNote.nextInt(7)] + ""+ (randomNote.nextInt(5)+1) + "" + duration[randomNote.nextInt(3)] + " ";
+			
+			for(Chord chord : cp.getChords()){
+				stringString += chord + "" + duration[randomNote.nextInt(3)] + " ";;
 			}
 			break;
 			
 		case "neutral":
 			String[] neutProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V","i iv v","i IIdim V","i VIdim","i bVI iv V"};
 			cp = new ChordProgression(neutProgress[randomNote.nextInt(8)]).setKey(scoreKey);
-			while(stringString.length() < tweetLength){
-				stringString += scale[randomNote.nextInt(7)] + "" + duration[randomNote.nextInt(3)] + " ";
+			for(Chord chord : cp.getChords()){
+				stringString += chord + "" + duration[randomNote.nextInt(3)] + " ";;
 			}
 			break;
 			
 		case "positive":
 			String[] posProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V"};
-			cp = new ChordProgression(posProgress[randomNote.nextInt(4)]).setKey(scoreKey);
-			while(stringString.length() < tweetLength){
-				stringString += scale[randomNote.nextInt(7)] + "" + (randomNote.nextInt(4)+3) + "" + duration[randomNote.nextInt(3)] + " ";
+			cp = new ChordProgression(posProgress[randomNote.nextInt(3)]).setKey(scoreKey);
+			for(Chord chord : cp.getChords()){
+				stringString += chord + "5" + duration[randomNote.nextInt(3)] + " ";
 			}
 			break;
 		}
@@ -155,7 +148,7 @@ public class workUp {
 		case "negative":
 			low = 60; high = 100;
 			rand = init.nextInt(high - low) + low;
-			String[] negInstruments ={"Church_Organ","Bassoon", "Baritone_Sax", "Brass_Section", "French_Horn", "Timpini", "Contrabass", "Synth_Bass_1"};
+			String[] negInstruments ={"Church_Organ","Bassoon", "Baritone_Sax", "Brass_Section", "French_Horn", "Contrabass", "Synth_Bass_1"};
 			instrument = negInstruments[init.nextInt(negInstruments.length)];
 			break;
 		case "neutral":
@@ -167,7 +160,7 @@ public class workUp {
 		case "positive":
 			low = 100; high = 256;
 			rand = init.nextInt(high - low) + low;
-			String[] posInstruments ={"Piano", "Flute", "Clarinet", "Oboe", "Soprano_Sax", "Glockenspiel", "Tinkle_Bell", "Piccolo", "Harpsichord", "Tubular_Bells", "Recorder", "Whistle", "Bird_Tweet"};
+			String[] posInstruments ={"Piano", "Flute", "Clarinet", "Oboe", "Soprano_Sax", "Glockenspiel", "Tinkle_Bell", "Piccolo", "Tubular_Bells", "Recorder", "Whistle", "Bird_Tweet"};
 			instrument = posInstruments[init.nextInt(posInstruments.length)];
 			break;
 		}
