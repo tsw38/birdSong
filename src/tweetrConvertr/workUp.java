@@ -21,14 +21,16 @@ import org.jfugue.theory.Note;
 public class workUp {
 
 	public static void main(String[] args) throws Exception{
-		
+		configuration conf = new configuration();
+		String[] config = configuration.secureCreds();
 		HashMap<Integer, Integer> lengthMap = new HashMap<Integer, Integer>(); //tweetID -> Length
 		HashMap<String, String> tweetPolarity; //tweet -> polarity
 		HashMap<Integer, HashMap<String, String>> uniqueTweet = new HashMap<Integer, HashMap<String, String>>(); //tweetID -> (tweet -> polarity)
 		
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://192.254.189.198:3306/tsw38_oauth","tsw38_admin","lucky#19");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://192.254.189.198:3306/" + config[0],"" + config[1], "" + config[2]);
 
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery("SELECT tweets.tweetID as ID, tweet, LENGTH(tweet)%17 AS length,sentiment FROM tweets,analysis WHERE tweets.tweetID = analysis.tweetID ORDER BY timestamp DESC LIMIT 5");
