@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 
+import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import org.jfugue.theory.Chord;
 import org.jfugue.theory.ChordProgression;
@@ -18,57 +21,38 @@ import org.jfugue.theory.Note;
 public class workUp {
 
 	public static void main(String[] args) throws Exception{
-		HashMap<String, Double> polarity = new HashMap<String, Double>();
-		//try connecting to the database
+		
+		HashMap<Integer, Integer> lengthMap = new HashMap<Integer, Integer>(); //tweetID -> Length
+		HashMap<String, String> tweetPolarity; //tweet -> polarity
+		HashMap<Integer, HashMap<String, String>> uniqueTweet = new HashMap<Integer, HashMap<String, String>>(); //tweetID -> (tweet -> polarity)
+		
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://192.254.189.198:3306/tsw38_oauth","tsw38_admin","lucky#19");
 
 			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery("SELECT Sentiment, ROUND((COUNT(*)/(SELECT COUNT(*) FROM analysis))*100,2) AS Polarity FROM analysis GROUP BY Sentiment ORDER BY Sentiment ASC");
+			ResultSet result = statement.executeQuery("SELECT tweets.tweetID as ID, tweet, LENGTH(tweet)%17 AS length,sentiment FROM tweets,analysis WHERE tweets.tweetID = analysis.tweetID ORDER BY timestamp DESC LIMIT 5");
 			
-			//create a Mapping of Polarity to how strongly people feel about it
-			
-			//Put the percentages into the map
+			//this will link all of the tweets together so that I can use their separate parts later
 			while(result.next()){
-				polarity.put(result.getString("Sentiment"), Double.parseDouble(result.getString("Polarity")));
+				tweetPolarity = new HashMap<String, String>();
+	
+				lengthMap.put(result.getInt("ID"), result.getInt("length"));
+				tweetPolarity.put(result.getString("tweet"), result.getString("sentiment"));
+				uniqueTweet.put(result.getInt("ID"), tweetPolarity);
 			}
+			
+			
+			
 			//for now I dont need the database anymore so this is where the generator comes in
 			connection.close();
-//			
-//			//Idea for now, just take the polarity and decide if positive or negative sounds should come out
-//			ChordProgression chordProgressions;
-//			if(polarity.get("negative") >= 50.00){
-//				System.out.println("this is a bad feeling");
-//				Player player = new Player();
-//				String playthis = " D E F G A  C C E F G B D E F  D E F C D E F G A D E F G A ";
-//				player.play(playthis);
-//			}
-//			else if(polarity.get("neutral") >= 30.00){
-//				Player player = new Player();
-//				player.play("V0 I[Piano] Eq Ch. | Eq Ch. | Dq Eq Dq Cq   V1 I[Flute] Rw | Rw | GmajQQQ CmajQ");
-//				
-//			}
-//			else if(polarity.get("positive") >= 50.00){
-//				Player player = new Player();
-//				chordProgressions = new ChordProgression("I IV V ii");
-//				player.play(chordProgressions);
-//			}
-					   		    
-//		    for (Chord chord : chordsArray) {
-//		      System.out.print("Chord "+chord+" has these notes: ");
-//		      
-//		      Note[] notes = chord.getNotes();
-//		      for (Note note : notes) {
-//		        System.out.print(note+" ");
-//		      }
-//		      System.out.println();
-//		    }
-//
+
 		    Player player = new Player();
 		    String tweet = "Could Mad Men all be a book that Ken Cosgrove has written in the future #MadMen";
 		    String sent = "negative";
+		    
 		    String sound = GeneratePolarSound(tweet,sent, GenerateTempoAndInstrument(tweet,sent));
+		    Pattern pat1 = new Pattern(GeneratePolarSound(tweet,sent, GenerateTempoAndInstrument(tweet,sent)));
 		    System.out.println(sound);
 		    player.play(sound);
 
@@ -77,8 +61,17 @@ public class workUp {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
 	}
+	
+	public static ArrayList<Note[]> getNotesForChord(ChordProgression cp){
+		ArrayList<Note[]> chordProgressionList= new ArrayList<Note[]>();
+		for(Chord chord : cp.getChords()){
+			Note[] chordNotes = chord.getNotes();
+			chordProgressionList.add(chordNotes);
+		}
+		return chordProgressionList;
+	}
+	
 	public static String GeneratePolarSound(String tweet, String polarity, String TempAndInst){
 		String stringString = "";
 		Random randomNote = new Random();
@@ -100,7 +93,15 @@ public class workUp {
 		case "negative":
 			String[] negProgress = {"i iv v","i IIdim V","i VIdim","i bVI iv V"};
 			cp = new ChordProgression(negProgress[randomNote.nextInt(4)]).setKey(scoreKey);
-			
+
+			Iterator<Note[]> itr = getNotesForChord(cp).iterator();
+			while(itr.hasNext()){
+				Note[] notes = itr.next();
+				for(Note note : notes){
+					System.out.println(note);
+				}
+				System.out.println();
+			}
 			
 			for(Chord chord : cp.getChords()){
 				stringString += chord + "" + duration[randomNote.nextInt(3)] + " ";;
