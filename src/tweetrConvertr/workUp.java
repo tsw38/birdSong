@@ -4,6 +4,7 @@ package tweetrConvertr;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,68 +20,37 @@ import org.jfugue.theory.Note;
 
 
 public class workUp {
-
+	public static configuration conf = new configuration();
+	public static HashMap<Integer, String> tweetPolarity = new HashMap<Integer, String>(); //tweetID -> polarity
+	public static HashMap<Integer, String> uniqueTweet = new HashMap<Integer, String>(); //tweetID -> (tweet -> polarity)
+	
 	public static void main(String[] args) throws Exception{
-		configuration conf = new configuration();
-		String[] config = configuration.secureCreds();
-		HashMap<Integer, Integer> lengthMap = new HashMap<Integer, Integer>(); //tweetID -> Length
-		HashMap<String, String> tweetPolarity; //tweet -> polarity
-		HashMap<Integer, HashMap<String, String>> uniqueTweet = new HashMap<Integer, HashMap<String, String>>(); //tweetID -> (tweet -> polarity)
+		setMaps();
+		
+		String tweet = "I love everything";
+		String sent = "positive";
+		String TempAndInst = GenerateTempoAndInstrument(tweet,sent);
 		
 		
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://192.254.189.198:3306/" + config[0],"" + config[1], "" + config[2]);
-
-			Statement statement = connection.createStatement();
-			ResultSet result = statement.executeQuery("SELECT tweets.tweetID as ID, tweet, LENGTH(tweet)%17 AS length,sentiment FROM tweets,analysis WHERE tweets.tweetID = analysis.tweetID ORDER BY timestamp DESC LIMIT 5");
-			
-			//this will link all of the tweets together so that I can use their separate parts later
-			while(result.next()){
-				tweetPolarity = new HashMap<String, String>();
-	
-				lengthMap.put(result.getInt("ID"), result.getInt("length"));
-				tweetPolarity.put(result.getString("tweet"), result.getString("sentiment"));
-				uniqueTweet.put(result.getInt("ID"), tweetPolarity);
-			}
-			
-			
-			
-			//for now I dont need the database anymore so this is where the generator comes in
-			connection.close();
-
-		    Player player = new Player();
-		    String tweet = "Could Mad Men all be a book that Ken Cosgrove has written in the future #MadMen";
-		    String sent = "negative";
-		    
-		    String sound = GeneratePolarSound(tweet,sent, GenerateTempoAndInstrument(tweet,sent));
-		    Pattern pat1 = new Pattern(GeneratePolarSound(tweet,sent, GenerateTempoAndInstrument(tweet,sent)));
-		    System.out.println(sound);
-		    player.play(sound);
-
-		    
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	public static ArrayList<Note[]> getNotesForChord(ChordProgression cp){
-		ArrayList<Note[]> chordProgressionList= new ArrayList<Note[]>();
-		for(Chord chord : cp.getChords()){
-			Note[] chordNotes = chord.getNotes();
-			chordProgressionList.add(chordNotes);
-		}
-		return chordProgressionList;
+//		int[] random = setChordMeasureLength(4,getBarLength(uniqueTweet.get(tweetID)));
+//		
+//		for(int sum : random){
+//			System.out.println(sum);
+//		}
+		
+		
+		Player player = new Player();
+		String sound = setBaseSongProgression(sent, tweet);
+		System.out.println(sound);
+		Pattern pat1 = new Pattern(sound);
+		player.play(pat1);
 	}
 	
 	public static String GeneratePolarSound(String tweet, String polarity, String TempAndInst){
-		String stringString = "";
-		Random randomNote = new Random();
-		ChordProgression cp;
-		String[] scale = {"A","B","C","D","E","F", "G"};
-		String scoreKey = scale[randomNote.nextInt(7)] + setKeyType(tweet);
-		char[] duration = {'w','h','Q'};
+		String[] chords = getV1ChordProgression(polarity, tweet);
+		for(int i = 0; i < chords.length; i++){
+			chords[i] = chords[i] + "w";
+		}
 		
 		/**
 		 * for now only play the chords for the progression,
@@ -90,56 +60,21 @@ public class workUp {
 		 * L System per each polarity, so that there is a in depth construction of possible chord progressions depending on the song and many possible combinations
 		 * 
 		 */
-		
-		switch(polarity){
-		case "negative":
-			String[] negProgress = {"i iv v","i IIdim V","i VIdim","i bVI iv V"};
-			cp = new ChordProgression(negProgress[randomNote.nextInt(4)]).setKey(scoreKey);
-
-			Iterator<Note[]> itr = getNotesForChord(cp).iterator();
-			while(itr.hasNext()){
-				Note[] notes = itr.next();
-				for(Note note : notes){
-					System.out.println(note);
-				}
-				System.out.println();
-			}
-			
-			for(Chord chord : cp.getChords()){
-				stringString += chord + "" + duration[randomNote.nextInt(3)] + " ";;
-			}
-			break;
-			
-		case "neutral":
-			String[] neutProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V","i iv v","i IIdim V","i VIdim","i bVI iv V"};
-			cp = new ChordProgression(neutProgress[randomNote.nextInt(8)]).setKey(scoreKey);
-			for(Chord chord : cp.getChords()){
-				stringString += chord + "" + duration[randomNote.nextInt(3)] + " ";;
-			}
-			break;
-			
-		case "positive":
-			String[] posProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V"};
-			cp = new ChordProgression(posProgress[randomNote.nextInt(3)]).setKey(scoreKey);
-			for(Chord chord : cp.getChords()){
-				stringString += chord + "5" + duration[randomNote.nextInt(3)] + " ";
-			}
-			break;
-		}
-		return TempAndInst + " " + stringString;
+		return TempAndInst + " " + String.join(" ", chords);
 	}
-	
 	public static String setKeyType(String tweet){
+		Random randomNote = new Random();
+		String[] scale = {"A","B","C","D","E","F", "G"};
 		String type = "";
+		
 		if(tweet.length()%3 == 0){
 			type="b";
 		}
 		if(tweet.length()%3 == 0 && tweet.length()%2 == 0){
 			type="#";
 		}
-		return type;
+		return scale[randomNote.nextInt(7)] + type;
 	}
-	
 	public static String GenerateTempoAndInstrument(String tweet, String polarity){
 		Random init = new Random();
 		String instrument = "";
@@ -167,9 +102,92 @@ public class workUp {
 			instrument = posInstruments[init.nextInt(posInstruments.length)];
 			break;
 		}
-		
 		return "T" + rand + " I[" + instrument + "]";
 	}
+	public static int getBarLength(String tweet){
+		return tweet.length()%17;
+	}
+	public static String getPolarity(Integer id){
+		return tweetPolarity.get(id);
+	}
+	public static void setMaps() throws ClassNotFoundException, SQLException{
+		String[] config = configuration.secureCreds();
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://192.254.189.198:3306/" + config[0],"" + config[1], "" + config[2]);
 
+		Statement statement = connection.createStatement();
+		ResultSet result = statement.executeQuery("SELECT tweets.tweetID as ID, tweet, sentiment FROM tweets,analysis WHERE tweets.tweetID = analysis.tweetID ORDER BY timestamp DESC LIMIT 10");
+		
+		//this will link all of the tweets together so that I can use their separate parts later
+		while(result.next()){
+			tweetPolarity.put(result.getInt("ID"), result.getString("sentiment"));
+			uniqueTweet.put(result.getInt("ID"), result.getString("tweet"));
+		}
+		connection.close();
+	}
+	public static int[] setChordMeasureLength(int chordTotal, double numOfMeasures) {
+	    Random rand = new Random();
+	    double randNums[] = new double[chordTotal],sum = 0;
+
+	    for (int i = 0; i < randNums.length; i++) {
+	        randNums[i] = rand.nextDouble();
+	        sum += randNums[i];
+	    }
+
+	    for (int i = 0; i < randNums.length; i++) {
+	        randNums[i] /= sum * numOfMeasures;
+	    }
+		
+	    int[] randomNumbers = new int[randNums.length];
+	    for(int i= 0; i < randNums.length; i++){
+	    	if((int)Math.round(randNums[i]*100) == 0){
+	    		randomNumbers[i] = 1;
+	    	}
+	    	else{
+	    		randomNumbers[i] = (int)Math.round(randNums[i]*100);
+	    	}
+	    }
+	    return randomNumbers;
+	}
+	public static String[] getV1ChordProgression(String polarity, String tweet){
+		ChordProgression cp = null;
+		Random randomNote = new Random();
+		String stringString = "";
+		
+		switch(polarity){
+		case "negative":
+			String[] negProgress = {"i iv v","i IIdim V","i VIdim","i bVI iv V"};
+			cp = new ChordProgression(negProgress[randomNote.nextInt(4)]).setKey(setKeyType(tweet));
+			for(Chord chord : cp.getChords()){
+				stringString += chord + " ";
+			}
+			break;
+		case "neutral":
+			String[] neutProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V","i iv v","i IIdim V","i VIdim","i bVI iv V"};
+			cp = new ChordProgression(neutProgress[randomNote.nextInt(8)]).setKey(setKeyType(tweet));
+			for(Chord chord : cp.getChords()){
+				stringString += chord + " ";
+			}
+			break;
+		case "positive":
+			String[] posProgress = {"I IV V","I ii V","I vi ii V","I iii vi ii V"};
+			cp = new ChordProgression(posProgress[randomNote.nextInt(3)]).setKey(setKeyType(tweet));
+			for(Chord chord : cp.getChords()){
+				stringString += chord + "5 ";
+			}
+			break;
+		}
+		return stringString.split(" ");
+	}
+	public static String setBaseSongProgression(String sentiment, String tweet){
+		int chordMeasureLength[] = setChordMeasureLength(getV1ChordProgression(sentiment,tweet).length, getBarLength(tweet));
+		String songBase = "";
+		for(String chord : getV1ChordProgression(sentiment,tweet)){
+			for(int chordMeasure : chordMeasureLength){
+				songBase += chord + "w ";
+			}
+		}
+		return GenerateTempoAndInstrument(tweet, sentiment) + " " + songBase;
+	}
 
 }
