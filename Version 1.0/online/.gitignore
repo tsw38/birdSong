@@ -1,0 +1,10 @@
+.sass-cache/*
+.sass-cache/
+functions/config.php
+sass/*
+sass/
+config.rb
+_gsdata_/
+_gsdata_/*
+*/error_log
+javascript/chartist/scss/

@@ -1,0 +1,547 @@
+/* line 1, ../sass/style.scss */
+html, body {
+  overflow: hidden !important;
+}
+
+/* line 4, ../sass/style.scss */
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+/* line 9, ../sass/style.scss */
+body header {
+  font-family: Aleo;
+}
+/* line 10, ../sass/style.scss */
+body header.tooDark {
+  color: #ECECEC;
+  text-shadow: 0px 1px 2px black, 0px 2px 2px #b5b5b5;
+}
+/* line 12, ../sass/style.scss */
+body header h1 {
+  font-size: 60px;
+  text-align: center;
+  margin: 30px 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+/* line 20, ../sass/style.scss */
+body header p {
+  display: table;
+  margin: 0 auto;
+  width: 50%;
+  text-align: justify;
+  font-weight: 100;
+}
+/* line 28, ../sass/style.scss */
+body.view {
+  background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 32, ../sass/style.scss */
+body.neg1 {
+  background: #00000c;
+  transition: background-color 0.5s ease;
+}
+/* line 36, ../sass/style.scss */
+body.neg2 {
+  background: linear-gradient(to bottom, #020111 85%, #191621 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 40, ../sass/style.scss */
+body.neg3 {
+  background: linear-gradient(to bottom, #020111 60%, #20202c 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 44, ../sass/style.scss */
+body.neg4 {
+  background: linear-gradient(to bottom, #020111 10%, #3a3a52 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 48, ../sass/style.scss */
+body.neg5 {
+  background: linear-gradient(to bottom, #20202c 0%, #515175 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 52, ../sass/style.scss */
+body.neg6 {
+  background: linear-gradient(to bottom, #00000c 80%, #150800 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 56, ../sass/style.scss */
+body.neg7 {
+  background: linear-gradient(to bottom, #090401 50%, #4B1D06 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 60, ../sass/style.scss */
+body.neg8 {
+  background: linear-gradient(to bottom, #010A10 30%, #59230B 80%, #2F1107 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 64, ../sass/style.scss */
+body.neg9 {
+  background: linear-gradient(to bottom, #071B26 0%, #071B26 30%, #8A3B12 80%, #240E03 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 68, ../sass/style.scss */
+body.neg10 {
+  background: linear-gradient(to bottom, #163C52 0%, #4F4F47 30%, #C5752D 60%, #B7490F 80%, #2F1107 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 72, ../sass/style.scss */
+body.pos1 {
+  background: linear-gradient(to bottom, #154277 0%, #576e71 30%, #e1c45e 70%, #b26339 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 76, ../sass/style.scss */
+body.pos2 {
+  background: linear-gradient(to bottom, #1e528e 0%, #728a7c 50%, #e9ce5d 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 80, ../sass/style.scss */
+body.pos3 {
+  background: linear-gradient(to bottom, #1e528e 0%, #265889 50%, #9da671 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 84, ../sass/style.scss */
+body.pos4 {
+  background: linear-gradient(to bottom, #2473ab 0%, #1e528e 70%, #5b7983 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 88, ../sass/style.scss */
+body.pos5 {
+  background: linear-gradient(to bottom, #2d91c2 0%, #1e528e 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 92, ../sass/style.scss */
+body.pos6 {
+  background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 96, ../sass/style.scss */
+body.pos7 {
+  background: linear-gradient(to bottom, #90dffe 0%, #38a3d1 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 100, ../sass/style.scss */
+body.pos8 {
+  background: linear-gradient(to bottom, #9be2fe 0%, #67d1fb 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 104, ../sass/style.scss */
+body.pos9 {
+  background: linear-gradient(to bottom, #b7eaff 0%, #94dfff 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 108, ../sass/style.scss */
+body.neu1 {
+  background: linear-gradient(to bottom, #94c5f8 1%, #a6e6ff 70%, #b1b5ea 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 112, ../sass/style.scss */
+body.neu2 {
+  background: linear-gradient(to bottom, #82addb 0%, #ebb2b1 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 116, ../sass/style.scss */
+body.neu3 {
+  background: linear-gradient(to bottom, #757abf 0%, #8583be 60%, #eab0d1 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 120, ../sass/style.scss */
+body.neu4 {
+  background: linear-gradient(to bottom, #4a4969 0%, #7072ab 50%, #cd82a0 100%);
+  transition: background-color 0.5s ease;
+}
+/* line 124, ../sass/style.scss */
+body.neu5 {
+  background: linear-gradient(to bottom, #40405c 0%, #6f71aa 80%, #8a76ab 100%);
+  transition: background-color 0.5s ease;
+}
+
+/* line 132, ../sass/style.scss */
+.tweets {
+  margin: 2% auto 0;
+  padding: 15px 10px 30px;
+  width: 50%;
+  color: #989898;
+  text-shadow: 0px 1px 2px black;
+  background-color: #171717;
+  font-family: Aleo;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* line 145, ../sass/style.scss */
+.tweets tr {
+  line-height: 25px;
+}
+
+/* line 150, ../sass/style.scss */
+#twitterIcon {
+  display: inline-block;
+  position: relative;
+}
+/* line 154, ../sass/style.scss */
+#twitterIcon img {
+  height: 170px;
+}
+
+/* line 158, ../sass/style.scss */
+.wrapper {
+  background-color: #e0a978;
+  box-shadow: 0px 2px 1px #d78f4e, 0px 5px 2px #d78f4e, 0px 8px 5px #b06928, 0px 15px 20px #9b5c24, 0px 20px 25px #87501f;
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+  position: relative;
+  top: 30%;
+  border-radius: 50px;
+}
+/* line 173, ../sass/style.scss */
+.wrapper .formContainer {
+  position: relative;
+  top: 20%;
+}
+/* line 177, ../sass/style.scss */
+.wrapper .formContainer {
+  height: 200px;
+}
+/* line 181, ../sass/style.scss */
+.wrapper .formContainer h1 {
+  font-size: 30px;
+  text-align: center;
+  padding: 0;
+  margin-bottom: 20px;
+  font-family: Arial,sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 1px #cccccc, 0px 2px 2px #a6a6a6, 0px 3px 2px #999999, 0px 4px 3px #737373, 0px 5px 3px #595959, 0px 9px 7px #4d4d4d, 0px 12px 12px #333333;
+}
+/* line 201, ../sass/style.scss */
+.wrapper .formContainer form {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+/* line 207, ../sass/style.scss */
+.wrapper .formContainer form label {
+  font-size: 15px;
+}
+/* line 211, ../sass/style.scss */
+.wrapper .formContainer form :disabled {
+  background-color: #b3b3b3;
+}
+/* line 215, ../sass/style.scss */
+.wrapper .formContainer form ::-webkit-input-placeholder {
+  color: #999999;
+}
+/* line 221, ../sass/style.scss */
+.wrapper h1 {
+  font-size: 30px;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial,sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0px 1px 1px #cccccc, 0px 2px 2px #a6a6a6, 0px 3px 2px #999999, 0px 4px 3px #737373, 0px 5px 3px #595959, 0px 9px 7px #4d4d4d, 0px 12px 12px #333333;
+}
+/* line 240, ../sass/style.scss */
+.wrapper h3 {
+  font-size: 20px;
+  padding: 10px 0;
+  margin-left: 19%;
+  font-family: Arial,sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+/* line 252, ../sass/style.scss */
+.wrapper h3 .minutes {
+  color: red;
+  margin-left: 2px;
+}
+/* line 259, ../sass/style.scss */
+.wrapper h4 {
+  margin-top: 0;
+  font-size: 20px;
+  padding: 5px 0;
+  margin-left: 19%;
+  font-family: Arial,sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+  margin-bottom: 0;
+}
+/* line 271, ../sass/style.scss */
+.wrapper h4 .minutes {
+  color: red;
+  margin-left: 40px;
+}
+/* line 277, ../sass/style.scss */
+.wrapper h5 {
+  margin-top: 0;
+  font-size: 20px;
+  padding: 5px 0;
+  margin-left: 19%;
+  font-family: Arial,sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 2px;
+}
+/* line 288, ../sass/style.scss */
+.wrapper h5 .minutes {
+  color: red;
+  margin-left: 9px;
+}
+/* line 295, ../sass/style.scss */
+.wrapper .back {
+  width: 100%;
+  text-align: center;
+  font-family: Arial,sans-serif;
+  position: absolute;
+  bottom: 20px;
+}
+/* line 302, ../sass/style.scss */
+.wrapper .back a, .wrapper .back a:active, .wrapper .back a:visited {
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+}
+/* line 309, ../sass/style.scss */
+.wrapper .back a:hover {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #666666;
+}
+
+/* line 319, ../sass/style.scss */
+.scroll {
+  overflow: auto;
+}
+
+/* line 323, ../sass/style.scss */
+.tweetTable {
+  overflow: auto;
+  width: 100%;
+  background-color: #020202;
+  padding: 20px;
+  height: 200px;
+}
+/* line 330, ../sass/style.scss */
+.tweetTable #tweetContainer {
+  width: 75%;
+  display: inline-block;
+  position: relative;
+  top: -35px;
+}
+/* line 337, ../sass/style.scss */
+.tweetTable .title {
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 45px;
+  font-family: Aleo;
+  letter-spacing: 2px;
+  margin: 10px 0;
+  color: #a6a6a6;
+}
+/* line 347, ../sass/style.scss */
+.tweetTable .stats {
+  margin: 10px 0 10px 50px;
+  padding: 0;
+  text-align: left;
+  font-family: Aleo;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 2px;
+  display: inline-block;
+  width: 75%;
+}
+/* line 359, ../sass/style.scss */
+.tweetTable .stats li {
+  display: inline;
+  font-size: 30px;
+  color: white;
+  letter-spacing: 4px;
+  width: 100%;
+}
+/* line 365, ../sass/style.scss */
+.tweetTable .stats li span {
+  color: red;
+}
+/* line 371, ../sass/style.scss */
+.tweetTable #return {
+  width: 100%;
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* line 377, ../sass/style.scss */
+.tweetTable #return a, .tweetTable #return a:active, .tweetTable #return a:visited {
+  letter-spacing: 2px;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+/* line 385, ../sass/style.scss */
+.tweetTable #return a:hover {
+  color: purple;
+  text-decoration: none;
+}
+/* line 391, ../sass/style.scss */
+.tweetTable .bottomTable {
+  padding: 0 10px;
+}
+/* line 394, ../sass/style.scss */
+.tweetTable .bottomTable span {
+  display: block;
+  padding: 0 10px;
+}
+/* line 398, ../sass/style.scss */
+.tweetTable .bottomTable span.even {
+  background-color: #b3b3b3;
+}
+/* line 402, ../sass/style.scss */
+.tweetTable .bottomTable span.odd {
+  background-color: #e6e6e6;
+}
+
+/* line 412, ../sass/style.scss */
+.analysisWrapper {
+  padding: 20px;
+  height: 500px;
+  width: 1400px;
+  margin: 5% auto 0 auto;
+  background-color: #342f2e;
+  border-radius: 25px;
+}
+/* line 422, ../sass/style.scss */
+.analysisWrapper .ct-labels .ct-horizontal, .analysisWrapper .ct-labels .ct-vertical {
+  color: #bfbfbf !important;
+}
+/* line 427, ../sass/style.scss */
+.analysisWrapper .ct-grid {
+  stroke: rgba(100, 100, 100, 0.5) !important;
+}
+
+/* line 435, ../sass/style.scss */
+.view .container {
+  width: 100%;
+  height: 100%;
+}
+/* line 439, ../sass/style.scss */
+.view .container .row1, .view .container .row2 {
+  width: 100%;
+  height: 49.5%;
+}
+/* line 443, ../sass/style.scss */
+.view .container .row1 .col1, .view .container .row2 .col1 {
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+  height: 100%;
+  width: 49%;
+}
+/* line 451, ../sass/style.scss */
+.view .container .row1 .col1 .polarityOfTweets tr, .view .container .row2 .col1 .polarityOfTweets tr {
+  text-align: left;
+  font-size: 14px;
+}
+/* line 452, ../sass/style.scss */
+.view .container .row1 .col1 .polarityOfTweets tr:first-of-type, .view .container .row2 .col1 .polarityOfTweets tr:first-of-type {
+  text-align: center;
+}
+/* line 460, ../sass/style.scss */
+.view .container .row1 .col1 .whatMakesPolarity, .view .container .row2 .col1 .whatMakesPolarity {
+  font-size: 18px;
+}
+/* line 463, ../sass/style.scss */
+.view .container .row1 .col1 .whatMakesPolarity .highlight, .view .container .row2 .col1 .whatMakesPolarity .highlight {
+  background-color: rgba(255, 255, 0, 0.5);
+  display: inline;
+  text-transform: inherit;
+}
+/* line 470, ../sass/style.scss */
+.view .container .row1 .col1 .whatMakesPolarity .even, .view .container .row2 .col1 .whatMakesPolarity .even {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* line 473, ../sass/style.scss */
+.view .container .row1 .col1 .whatMakesPolarity .odd, .view .container .row2 .col1 .whatMakesPolarity .odd {
+  background-color: rgba(100, 100, 100, 0.2);
+}
+/* line 479, ../sass/style.scss */
+.view .container .row1 .col1 .characteristicsText .even, .view .container .row2 .col1 .characteristicsText .even {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* line 482, ../sass/style.scss */
+.view .container .row1 .col1 .characteristicsText .odd, .view .container .row2 .col1 .characteristicsText .odd {
+  background-color: rgba(100, 100, 100, 0.2);
+}
+/* line 488, ../sass/style.scss */
+.view .container .row1 .col2, .view .container .row2 .col2 {
+  display: inline-block;
+  float: right;
+  margin-right: 10px;
+  height: 98%;
+  width: 49%;
+}
+/* line 496, ../sass/style.scss */
+.view .container .row1 .col2 .future .even, .view .container .row2 .col2 .future .even {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* line 499, ../sass/style.scss */
+.view .container .row1 .col2 .future .odd, .view .container .row2 .col2 .future .odd {
+  background-color: rgba(100, 100, 100, 0.2);
+}
+/* line 505, ../sass/style.scss */
+.view .container .row1 .col1, .view .container .row1 .col2, .view .container .row2 .col1, .view .container .row2 .col2 {
+  font-family: Calibri;
+  overflow: auto;
+}
+/* line 509, ../sass/style.scss */
+.view .container .row1 .col1 span, .view .container .row1 .col2 span, .view .container .row2 .col1 span, .view .container .row2 .col2 span {
+  text-align: center;
+  display: block;
+  height: 30px;
+  text-transform: uppercase;
+  padding: 5px 0px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+/* line 520, ../sass/style.scss */
+.view .container .row1 .col1 table, .view .container .row1 .col2 table, .view .container .row2 .col1 table, .view .container .row2 .col2 table {
+  width: 100%;
+}
+/* line 523, ../sass/style.scss */
+.view .container .row1 .col1 table tr, .view .container .row1 .col2 table tr, .view .container .row2 .col1 table tr, .view .container .row2 .col2 table tr {
+  text-align: center;
+  width: 100%;
+}
+/* line 527, ../sass/style.scss */
+.view .container .row1 .col1 table tr.even, .view .container .row1 .col2 table tr.even, .view .container .row2 .col1 table tr.even, .view .container .row2 .col2 table tr.even {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+/* line 530, ../sass/style.scss */
+.view .container .row1 .col1 table tr.odd, .view .container .row1 .col2 table tr.odd, .view .container .row2 .col1 table tr.odd, .view .container .row2 .col2 table tr.odd {
+  background-color: rgba(100, 100, 100, 0.2);
+}
+/* line 539, ../sass/style.scss */
+.view .container .row1 {
+  margin-bottom: 5px;
+}
+/* line 542, ../sass/style.scss */
+.view .container .row2 {
+  margin-top: 5px;
+  position: absolute;
+  bottom: 0;
+}
