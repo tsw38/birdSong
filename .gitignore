@@ -1,4 +1,7 @@
-/bin/
+bin/
 .settings/
 something.xml
 config.txt
+outputMusic/
+.classpath
+.project
